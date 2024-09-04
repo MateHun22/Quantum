@@ -5,8 +5,11 @@ from rich.panel import Panel
 from rich.prompt import Prompt
 from rich.text import Text
 import readline
+from commands.controls import load_settings
 
 console = Console()
+
+settings = load_settings()
 
 commands = {}
 command_history = []
@@ -49,9 +52,11 @@ def main():
     load_cogs()
     
     while True:
-        user_input = Prompt.ask("[blue]Quantum >> [/blue]").strip().lower()
+        user_input = Prompt.ask(prompt=f"[blue]{os.getcwd()}[/blue]").strip().lower()
         command_history.append(user_input)
         readline.add_history(user_input)
+        global settings
+        settings = load_settings()
 
         command, args = parse_command_input(user_input)
 
