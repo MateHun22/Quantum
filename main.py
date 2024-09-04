@@ -49,7 +49,7 @@ def main():
     load_cogs()
     
     while True:
-        user_input = Prompt.ask("[blue]mytool >[/blue]").strip().lower()
+        user_input = Prompt.ask("[blue]Quantum >> [/blue]").strip().lower()
         command_history.append(user_input)
         readline.add_history(user_input)
 

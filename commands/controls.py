@@ -10,7 +10,7 @@ settings = {
 def clear_screen():
     """Clear the console screen."""
     os.system('cls' if os.name == 'nt' else 'clear')
-    console.print("[cyan]Screen cleared![/cyan]")
+    console.print("[blue]Screen cleared![/blue]")
     
     if settings['show_logo']:
         from main import logo 
@@ -20,7 +20,7 @@ def toggle_logo_display():
     """Toggle the display of the logo after clearing the screen."""
     settings['show_logo'] = not settings['show_logo']
     state = "enabled" if settings['show_logo'] else "disabled"
-    console.print(f"[yellow]Logo display after clearing is now {state}.[/yellow]")
+    console.print(f"[green]Logo display after clearing is now {state}.[/green]")
 
 def set_command(args):
     """Set a specific configuration option."""
