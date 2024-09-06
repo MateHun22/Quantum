@@ -7,7 +7,7 @@ SETTINGS_FILE = 'settings.json'
 console = Console()
 
 settings = {
-    'show_logo': True,
+    'show_logo'
 }
 
 def initialize_settings():

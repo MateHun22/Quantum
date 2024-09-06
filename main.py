@@ -48,14 +48,16 @@ def parse_command_input(user_input):
     return command, args
             
 def main():
-    logo()
+    global settings
+    
+    if settings["show_logo"]:
+        logo()
     load_cogs()
     
     while True:
         user_input = Prompt.ask(prompt=f"[blue]{os.getcwd()}[/blue]").strip().lower()
         command_history.append(user_input)
         readline.add_history(user_input)
-        global settings
         settings = load_settings()
 
         command, args = parse_command_input(user_input)
