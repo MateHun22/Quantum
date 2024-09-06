@@ -6,7 +6,7 @@ from rich.tree import Tree
 console = Console()
 
 def list_files(args):
-    """Lists files in a given directory, the current one if not provided."""
+    """Lists files in a given directory, the current one if not provided. USAGE: list <directory>"""
     target_dir = args[0] if args else os.getcwd()
     
     try:
@@ -25,7 +25,7 @@ def list_files(args):
         console.print(f"[red]Error listing files: {e}[/red]")
         
 def show_tree(args):
-    """Displays the files in the given directory in a tree format."""
+    """Displays the files in the given directory in a tree format. USAGE: tree <directory>"""
     target_dir = args[0] if args else os.getcwd()
     
     try:
@@ -46,7 +46,7 @@ def show_tree(args):
         console.print(f"[red]Error displaying tree: {e}[/red]")
         
 def copy_file(args):
-    """Copies a file to a specified destination."""
+    """Copies a file to a specified destination. USAGE: <source> <destination>"""
     
     if len(args) < 2:
         console.print("[red]Usage: copy <source> <destination>.[/red]")

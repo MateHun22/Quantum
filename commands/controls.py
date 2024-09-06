@@ -60,7 +60,7 @@ def toggle_logo_display():
     console.print(f"[green]Logo display after clearing is now {state}.[/green]")
 
 def set_command(args):
-    """Sets a specific configuration option."""
+    """Sets a specific configuration option. USAGE: set <setting_name> <value>"""
     if len(args) != 2:
         console.print("[red]Usage: set <setting_name> <value>[/red]")
         return
