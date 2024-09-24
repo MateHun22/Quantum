@@ -2,6 +2,7 @@ import os
 import shutil
 from rich.console import Console
 from rich.tree import Tree
+from rich.prompt import Prompt
 
 console = Console()
 
@@ -61,10 +62,85 @@ def copy_file(args):
     except Exception as e:
         console.print(f"[red]Error copying file: {e}[/red]")
         
+def delete_file(args):
+    """Deletes the specified item. USAGE: rm <type> <path> <extra>"""
+
+    type = args[0]
+    path = args[1]
+    
+    if len(args) > 2:
+        extra = args[2]
+
+    else:
+        extra = None
+
+    try:
+        if type == "file":
+            if extra == "--c":
+                confirm = Prompt.ask(f"Are you sure you want to remove {path}?",show_choices=True, choices=["y","n"])
+                if confirm == "y":
+                    os.remove(path)
+                    console.print("[green]Successfully deleted file.[/green]")
+                elif confirm == "n":
+                    console.print("[red]Deletion aborted.[/red]")
+                else:
+                    console.print("[red]Enter a valid value.[/red]")
+            elif extra is None:
+                os.remove(path)
+                console.print("[green]Successfully deleted file.[/green]")
+        elif type == "dir":
+            if extra == "--c":
+                confirm = Prompt.ask(f"Are you sure you want to remove {path}?",show_choices=True, choices=["y","n"])
+
+                if confirm == "y":
+                    os.rmdir(path)
+                    console.print("[green]Successfully deleted directory.[/green]")
+                elif confirm == "n":
+                    console.print("[red]Deletion aborted.[/red]")
+                else:
+                    console.print("[red]Enter a valid value.[/red]")
+            elif extra is None:
+                os.rmdir(path)
+                console.print("[green]Successfully deleted directory.[/green]")
+    except Exception as e:
+        console.print(f"[red]Error deleting item: {e}[/red]")
+
+def make_item(args):
+    """Creates a directory with a specified name in the current folder. USAGE: mk <type> <path>"""
+
+    type = args[0]
+    path = args[1]
+
+    try:
+        if type == "dir":
+            os.mkdir(path)
+            console.print("[green]Successfully created directory.[/green]")
+        elif type == "file":
+            with open(path, 'w') as file:
+                file.write("")
+            console.print("[green]Successfully created file.[/green]")
+        else:
+            console.print("[red]Invalid type.[/red]")
+    except Exception as e:
+        print(f"[red]Couldn't create file: {e}[/red]")
+    
+def change_dir(args):
+    """Switches to the specified directory. USAGE: cd <path>"""
+
+    path = args[0]
+
+    try:
+        os.chdir(path)
+    except Exception as e:
+        console.print(f"[red]Couldn't change directory: {e}.[/red]")
+        
         
 def get_commands():
     return {
     "list": {"func": list_files, "args": "optional"},
     "tree": {"func": show_tree, "args": "optional"},
     "copy": {"func": copy_file, "args": "required"},
+    "rm": {"func": delete_file, "args": "required"},
+    "mk": {"func": make_item, "args": "required"},
+    "cd": {"func": change_dir, "args": "required"}
     }
